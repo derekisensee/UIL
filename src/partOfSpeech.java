@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class partOfSpeech {	
 	public static void main(String[] args) throws IOException {
-		File inFile = new File ("src/partOfSpeech.dat");
+		File inFile = new File ("partOfSpeech.dat");
 		Scanner scan = new Scanner(inFile); //the partOfSpeech text
 		String nounWords = scan.nextLine();
 		String verbWords = scan.nextLine() + scan.nextLine();
