@@ -7,7 +7,7 @@ public class War {
 	
 	public static String val(String card1, String card2) { //returns true if card1 is greater than card2
 		if(card1.equals(card2))
-			return "both equal.";		
+			return "both equal.";
 		if (card1.equals("A"))
 			return card1;
 		if (card2.equals("A"))
@@ -37,10 +37,17 @@ public class War {
 		while (sets-- > 0) {
 			String[] playerOne = in.nextLine().split(" ");
 			String[] playerTwo = in.nextLine().split(" ");
+			int playerOneInc = 0;
+			int playerTwoInc = 0;
 			
 			for(int i = 0; i < 14; i++) {
-				System.out.println(val(playerOne[i], playerTwo[i]));
+				//System.out.println(val(playerOne[i], playerTwo[i]));
+				if(val(playerOne[i], playerTwo[i]).equals(playerOne[i])) //have to make method that simulates a War
+					playerOneInc++;
+				else
+					playerTwoInc++;
 			}
+			System.out.println(playerOneInc + " " + playerTwoInc);
 			System.out.println();
 		}
 	}
