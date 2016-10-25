@@ -3,8 +3,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class War {
-	//int[] set = [2];
-	
+    int playerOneCards = 0;
+    int playerTwoCards = 0;
+
 	public static String val(String card1, String card2) { //returns true if card1 is greater than card2
 		if(card1.equals(card2))
 			return "both equal.";
@@ -33,23 +34,43 @@ public class War {
 	public static void main(String[] args) throws IOException {
 		Scanner in = new Scanner(new File("war.dat"));
 		int sets = Integer.parseInt(in.nextLine());
+        int playerOneCards = 0;
+        int playerTwoCards = 0;
 		
 		while (sets-- > 0) {
 			String[] playerOne = in.nextLine().split(" ");
 			String[] playerTwo = in.nextLine().split(" ");
-			int playerOneInc = 0;
-			int playerTwoInc = 0;
-			
-			for(int i = 0; i < 14; i++) {
-				//System.out.println(val(playerOne[i], playerTwo[i]));
-				if(val(playerOne[i], playerTwo[i]).equals(playerOne[i])) //have to make method that simulates a War
-					playerOneInc++;
-				else
-					playerTwoInc++;
-			}
-			System.out.println(playerOneInc + " " + playerTwoInc);
-			System.out.println();
-		}
-	}
+            playerOneCards = 15;
+            playerTwoCards = 15;
+			int i = 0;
 
+			while(i < 14) { //is 14 not being run???
+				if(val(playerOne[i], playerTwo[i]).equals(playerOne[i])) { //have to make method that simulates a War
+                    playerOneCards++;
+                    playerTwoCards--;
+                    i++;
+				}
+				else if(val(playerOne[i], playerTwo[i]).equals("both equal.")) { //if a tie !!! comparing isn't working right
+                    i = i + 4;
+                    //i = i + 3;
+					if(val(playerOne[i], playerTwo[i]).equals(playerOne[i])) {
+						//been using += 4
+                        playerOneCards += 5;
+						playerTwoCards -= 5;
+					}
+					else {
+						playerTwoCards += 5;
+						playerOneCards -= 5;
+					}
+                }
+                if(val(playerOne[i], playerTwo[i]).equals(playerTwo[i])){
+                    playerTwoCards++;
+                    playerOneCards--;
+                    i++;
+                }
+			}
+			System.out.println(playerOneCards + " " + playerTwoCards);
+		}
+		in.close();
+	}
 }
