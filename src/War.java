@@ -54,6 +54,7 @@ public class War {
                     //i = i + 5;
                     //i = i + 3;
 					i = i - 3;
+
 					if(val(playerOne[i], playerTwo[i]).equals(playerOne[i])) {
 						//been using += 4
                         playerOneCards += 5;
