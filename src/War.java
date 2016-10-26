@@ -42,17 +42,18 @@ public class War {
 			String[] playerTwo = in.nextLine().split(" ");
             playerOneCards = 15;
             playerTwoCards = 15;
-			int i = 0;
+			int i = playerOne.length-1;
 
-			while(i < 14) { //is 14 not being run???
+			while(i > 0) { //is 14 not being run???
 				if(val(playerOne[i], playerTwo[i]).equals(playerOne[i])) { //have to make method that simulates a War
                     playerOneCards++;
                     playerTwoCards--;
-                    i++;
+                    i--;
 				}
 				else if(val(playerOne[i], playerTwo[i]).equals("both equal.")) { //if a tie !!! comparing isn't working right
-                    i = i + 4;
+                    //i = i + 5;
                     //i = i + 3;
+					i = i - 3;
 					if(val(playerOne[i], playerTwo[i]).equals(playerOne[i])) {
 						//been using += 4
                         playerOneCards += 5;
@@ -66,9 +67,20 @@ public class War {
                 if(val(playerOne[i], playerTwo[i]).equals(playerTwo[i])){
                     playerTwoCards++;
                     playerOneCards--;
-                    i++;
+                    i--;
                 }
 			}
+			//for zero case
+            if(val(playerOne[0], playerTwo[0]).equals(playerOne[0])) { //have to make method that simulates a War
+                playerOneCards++;
+                playerTwoCards--;
+                i--;
+            }
+            if(val(playerOne[0], playerTwo[0]).equals(playerTwo[0])){
+                playerTwoCards++;
+                playerOneCards--;
+            }
+            //
 			System.out.println(playerOneCards + " " + playerTwoCards);
 		}
 		in.close();
