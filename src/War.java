@@ -3,31 +3,87 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class War {
-	int[] arr = new int[11];
-	
-	public boolean val(String cardOne, String cardTwo) { //figure out what to return
-		if (cardOne.equals("J") || cardTwo.equals("J") || cardOne.equals("Q") || cardTwo.equals("Q")|| cardOne.equals("K") || cardTwo.equals("K") || cardOne.equals("A") || cardTwo.equals("A")) {
-			
-		}
-		else {
-			if (Integer.parseInt(cardOne) > Integer.parseInt(cardTwo)) {
-				
-			}
-		}
-		return false;
+    int playerOneCards = 0;
+    int playerTwoCards = 0;
+
+	public static String val(String card1, String card2) { //returns true if card1 is greater than card2
+		if(card1.equals(card2))
+			return "both equal.";
+		if (card1.equals("A"))
+			return card1;
+		if (card2.equals("A"))
+			return card1;
+		if (card1.equals("K"))
+			return card1;
+		if (card2.equals("K"))
+			return card2;
+		if (card1.equals("Q"))
+			return card1;
+		if (card2.equals("Q"))
+			return card2;
+		if (card1.equals("J"))
+			return card1;
+		if (card2.equals("J"))
+			return card2;
+		if (Integer.parseInt(card1) > Integer.parseInt(card2))
+			return card1;
+		else
+			return card2;
 	}
 	
 	public static void main(String[] args) throws IOException {
 		Scanner in = new Scanner(new File("war.dat"));
 		int sets = Integer.parseInt(in.nextLine());
+        int playerOneCards = 0;
+        int playerTwoCards = 0;
 		
 		while (sets-- > 0) {
-			String[] deckOne = in.nextLine().split(" ");
-			String[] deckTwo = in.nextLine().split(" ");
-			
-			
+			String[] playerOne = in.nextLine().split(" ");
+			String[] playerTwo = in.nextLine().split(" ");
+            playerOneCards = 15;
+            playerTwoCards = 15;
+			int i = playerOne.length-1;
+
+			while(i > 0) { //is 14 not being run???
+				if(val(playerOne[i], playerTwo[i]).equals(playerOne[i])) { //have to make method that simulates a War
+                    playerOneCards++;
+                    playerTwoCards--;
+                    i--;
+				}
+				else if(val(playerOne[i], playerTwo[i]).equals("both equal.")) { //if a tie !!! comparing isn't working right
+                    //i = i + 5;
+                    //i = i + 3;
+					i = i - 3;
+
+					if(val(playerOne[i], playerTwo[i]).equals(playerOne[i])) {
+						//been using += 4
+                        playerOneCards += 5;
+						playerTwoCards -= 5;
+					}
+					else {
+						playerTwoCards += 5;
+						playerOneCards -= 5;
+					}
+                }
+                if(val(playerOne[i], playerTwo[i]).equals(playerTwo[i])){
+                    playerTwoCards++;
+                    playerOneCards--;
+                    i--;
+                }
+			}
+			//for zero case
+            if(val(playerOne[0], playerTwo[0]).equals(playerOne[0])) { //have to make method that simulates a War
+                playerOneCards++;
+                playerTwoCards--;
+                i--;
+            }
+            if(val(playerOne[0], playerTwo[0]).equals(playerTwo[0])){
+                playerTwoCards++;
+                playerOneCards--;
+            }
+            //
+			System.out.println(playerOneCards + " " + playerTwoCards);
 		}
 		in.close();
 	}
-
 }
