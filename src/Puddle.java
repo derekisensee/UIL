@@ -4,14 +4,15 @@
 import java.util.Scanner;
 import java.io.*;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
-
 public class Puddle {
-    public static String bop(String[][] m, int[] c) {
+    public static void bop(String[][] m, int[] c) {
         if(m[c[0]][c[1]].equals("G"))
-            return "OK";
+            System.out.println("OK");
+        else if(m[c[0]][c[1]].equals("R") || m[c[0]][c[1]].equals("S"))
+            System.out.println("OOPS");
         else
-            return "NOT OK";
+            bop()
+            //recursion
     }
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -32,7 +33,7 @@ public class Puddle {
         while(sets-- > 0) {
             String[] s = in.nextLine().split(" ");
             int[] cord = new int[] {Integer.parseInt(s[0]), Integer.parseInt(s[1])};
-            System.out.println(bop(matrix, cord));
+            bop(matrix, cord);
         }
     }
 }
