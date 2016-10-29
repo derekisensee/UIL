@@ -8,7 +8,7 @@ public class Speed {
 		int sets = Integer.parseInt(in.nextLine());
 		
 		while(sets-- > 0) {
-			System.out.printf("%.1f\n", Integer.parseInt(in.nextLine())/5.0);
+			System.out.printf("%.1f\n", Double.parseDouble(in.nextLine())/5.0);
 		}
 
 	}
