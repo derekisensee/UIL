@@ -12,7 +12,7 @@ public class MixEmUp {
 
         while (sets-- > 0) {
             ArrayList set = new ArrayList();
-            set.add(in.next)
+            //set.add(in.next);
         }
     }
 }
