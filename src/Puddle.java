@@ -10,7 +10,7 @@ public class Puddle {
     public static void bop(int[] c) {
         int x = c[0]; int xLen = matrix.length;
         int y = c[1]; int yLen = matrix[0].length;
-        if(matrix[x][y].equals("W")) {
+        if (matrix[x][y].equals("W")) {
             matrix[x][y] = "F";
             if(x!=0 && y!=0) {
                 int[] a = new int[]{x - 1, y - 1};
