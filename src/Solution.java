@@ -25,6 +25,16 @@ public class Solution {
             bot[0] = (botStack % n-1);
         prin[1] = s.indexOf("p") - n; // prin coords off by 1
         bot[1] = s.indexOf("m") - n;
+
+        String[] divided = new String[n*n];
+        for (int i = 0; i < s.size(); i+=n) {
+            for (int j = i; j < n*n; j++) {
+                divided[j] = (String)s.get(j);
+            }
+        }
+        for (int i = 0; i < divided.length; i++) {
+            System.out.println(divided[i]);
+        }
         System.out.println("prin coord: " + prin[0] + " " + prin[1]);
         System.out.println("bot coord: " + bot[0] + " " + bot[1]);
         System.out.println("size: " + s.size());
