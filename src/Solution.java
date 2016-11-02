@@ -23,8 +23,8 @@ public class Solution {
             bot[0] = (botStack % n);
         else
             bot[0] = (botStack % n-1);
-        prin[1] = (prinStack - n);
-        bot[1] = (botStack );
+        prin[1] = s.indexOf("p") - n; // prin coords off by 1
+        bot[1] = s.indexOf("m") - n;
         System.out.println("prin coord: " + prin[0] + " " + prin[1]);
         System.out.println("bot coord: " + bot[0] + " " + bot[1]);
         System.out.println("size: " + s.size());
