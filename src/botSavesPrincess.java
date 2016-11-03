@@ -12,7 +12,6 @@ public class botSavesPrincess {
         }
         int[] prin = new int[2];
         int[] bot = new int[2];
-
         String[][] divided = new String[n][n]; int inc = 0;
         for (int i = 0; i < s.size()/n; i++) {
             for (int j = 0; j < n; j++) {
@@ -45,7 +44,6 @@ public class botSavesPrincess {
             System.out.println("RIGHT");
         }
     }
-
     public static void main(String[] args) throws FileNotFoundException {
         Scanner in = new Scanner(new File("botsavesprincess.dat"));
         int m = Integer.parseInt(in.nextLine());
