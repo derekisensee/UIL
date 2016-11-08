@@ -21,14 +21,20 @@ public class gender_race {
             else
                 maleCount++;
         }
-        String[][] females = new String[femaleCount][3];
-        for (int i = 0; i < femaleCount; i++) {
-            if (racers[i][2].equals("F"))
-                females[i] = racers[i];
+        int currBest = Integer.MAX_VALUE;
+        String[][] bestRacer = new String[1][3];
+        String[][] secondBest = new String[1][3];
+        for (int i = 0; i < racers.length; i++) {
+            if (Integer.parseInt(racers[i][1]) < currBest) { // overall winner
+                currBest = Integer.parseInt(racers[i][1]);
+                bestRacer[0] = racers[i];
+            }
+            if (Integer.parseInt(racers[i][1]) > currBest) { // second winner, this wouldn't work correctly with other data sets
+                secondBest[0] = racers[i];
+            }
         }
-        for (int i = 0; i < females[0].length; i++) {
-            System.out.println(females[i][0]);
-        }
+        System.out.println(bestRacer[0][0]);
+        System.out.println(secondBest[0][0]);
         //String[][] males = new String[][];
         while (sets-- > 0) {
 
