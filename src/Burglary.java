@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -20,10 +21,21 @@ public class Burglary {
             Double currMoneyTot = 0.0;
             for (int i = 0; i < rooms; i++) {
                 currMoneyTot += money[i];
-                expectedVals.add(((1 - (i * .05)) * currMoneyTot));
+                DecimalFormat f = new DecimalFormat("####0.00"); //formats to 2 decimal places
+                Double toRound = (1 - (i * .05)) * currMoneyTot;
+                expectedVals.add(Double.parseDouble(f.format(toRound)));
             }
-            Collections.sort(expectedVals);
-            System.out.println(expectedVals.get(expectedVals.size()-1)); // have to figure out what room to stop in
+            ArrayList<Double> sortedExpectedVals = (ArrayList<Double>)expectedVals.clone();
+            /*
+            So with the above sortedExpectedVals declaration, you can't do "ArrayList<Double> sortedExpectedVals = expectedVals;"
+            because when you try to get the index of the "expectedVals.indexOf(highest)", it gets the index from sortedExpectedVals,
+            which will always return the highest index (sometimes).
+             */
+            Collections.sort(sortedExpectedVals);
+            Double highest = sortedExpectedVals.get(sortedExpectedVals.size() - 1);
+            int index = expectedVals.indexOf(highest);
+            System.out.print(index + " ");
+            System.out.printf("%.2f\n", highest);
         }
     }
 }
