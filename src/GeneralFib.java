@@ -12,7 +12,7 @@ public class GeneralFib {
         if (n == 2)
             return y;
         else
-            return a * fib(x, y, a, b, n - 1) + b * (fib(x, y, a, b, n -2));
+            return a * fib(x, y, a, b, n - 1) + b * fib(x, y, a, b, n -2);
     }
 
     public static void main(String[] args) throws FileNotFoundException {
