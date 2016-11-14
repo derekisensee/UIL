@@ -33,6 +33,7 @@ public class ImageFlip {
                     System.out.println();
                 }
             }
+
             System.out.println();
         }
     }
