@@ -6,7 +6,7 @@ import java.util.*;
 public class Ques {
     public static void main(String[] args) {
         PriorityQueue q = new PriorityQueue();
-        for (int i = 0; i < 8000; i++) {
+        for (int i = 0; i < 16000; i++) {
             q.add(Math.random());
         }
         System.out.println(q);
