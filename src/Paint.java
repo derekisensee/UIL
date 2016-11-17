@@ -1,26 +1,40 @@
+/**
+ * Created by let me in to your hearttttt on 11/16/2016.
+ */
 import java.util.*;
 import java.io.*;
-
-/**
- * Created by isenseed on 11/16/2016.
- */
 public class Paint {
+    static String paper[][];
+    static void vert(String[][] pap) { // have to complete this
+        String[][] temp = new String[pap.length][pap[0].length];
+        int it = pap.length;
+        for (int i = 0; i < pap.length; i++) {
 
-    static void vert(String[][] pap) {
-
+        }
+        for (int i = 0; i < pap.length; i++) {
+            for (int j = 0; j < pap[i].length; j++) {
+                System.out.print(temp[i][j]);
+            }
+            System.out.println();
+        }
     }
     static void horz(String[][] pap) {
         int midIndex = pap[0].length / 2;
         System.out.println(midIndex);
-        for (int i = 0; i < pap[0].length; i++) {
-            if (i < midIndex) {
-                int distance = midIndex - i;
-                int newIndex = distance + i; //can condense this to one line
+        for (int i = 0; i < pap.length; i++) {
+            String temp = "";
+            for (int j = 0; j < pap[i].length; j++) {
+                temp += pap[i][j];
             }
-            else if (i > midIndex) {
-                int distance = i - midIndex;
+            StringBuilder b = new StringBuilder(temp).reverse();
+            String[] a = b.toString().split("");
+            for (int j = 0; j < pap[i].length; j++) {
+                if (!(pap[i][j].equals("x"))) {
+                    pap[i][j] = a[j];
+                }
             }
         }
+        paper = pap;
     }
     public static void main(String[] args) throws FileNotFoundException {
         Scanner in = new Scanner(new File("paint.dat"));
@@ -29,16 +43,21 @@ public class Paint {
             int r = in.nextInt();
             int c = in.nextInt();
             in.nextLine();
-            String[][] paper = new String[r][c];
+            paper = new String[r][c];
             for (int i = 0; i < r; i++) {
                 String[] temp = in.nextLine().split("");
                 for (int j = 0; j < c; j++) {
                     paper[i][j] = temp[j];
                 }
             }
-            horz(paper);
-            in.nextLine(); // have every grid in a 2d array now
-
+            vert(paper);
+            for (int i = 0; i < paper.length; i++) {
+                for (int j = 0; j < paper[i].length; j++) {
+                    System.out.print(paper[i][j]);
+                }
+                System.out.println();
+            }
+            in.nextLine();
         }
     }
 }
