@@ -5,22 +5,16 @@ import java.util.*;
 import java.io.*;
 public class Paint {
     static String paper[][];
-    static void vert(String[][] pap) { // have to complete this
-        String[][] temp = new String[pap.length][pap[0].length];
-        int it = pap.length;
-        for (int i = 0; i < pap.length; i++) {
-
-        }
+    static void vert(String[][] pap) {
         for (int i = 0; i < pap.length; i++) {
             for (int j = 0; j < pap[i].length; j++) {
-                System.out.print(temp[i][j]);
+                if (!(pap[i][j].equals("x")))
+                    pap[i][j] = pap[pap.length-i - 1][j];
             }
-            System.out.println();
         }
+        paper = pap;
     }
     static void horz(String[][] pap) {
-        int midIndex = pap[0].length / 2;
-        System.out.println(midIndex);
         for (int i = 0; i < pap.length; i++) {
             String temp = "";
             for (int j = 0; j < pap[i].length; j++) {
@@ -50,14 +44,20 @@ public class Paint {
                     paper[i][j] = temp[j];
                 }
             }
-            vert(paper);
+            String[] flips = in.nextLine().split("");
+            for (int i = 0; i < flips.length; i++) {
+                if (flips[i].equals("V")) {
+                    vert(paper);
+                }
+                else
+                    horz(paper);
+            }
             for (int i = 0; i < paper.length; i++) {
                 for (int j = 0; j < paper[i].length; j++) {
                     System.out.print(paper[i][j]);
                 }
                 System.out.println();
             }
-            in.nextLine();
         }
     }
 }
