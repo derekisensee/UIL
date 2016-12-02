@@ -10,14 +10,13 @@ public class Dara {
                 else
                     deriv += "0";
             }
-            else {
-                if (p[i].matches("[X0-9\\^]")) {
-                    String[] brokenDown = p[i].split("");
-                    for (String s :
-                            brokenDown) {
-                        deriv += s;
-                    }
-                }
+            else if (p[i].matches("[^\\+|\\-]")){
+                deriv += "test";
+                /*String[] brokenDown = p[i].split("");
+                for (String s :
+                    brokenDown) {
+                    deriv += s;
+                }*/
             }
         }
         return deriv;
