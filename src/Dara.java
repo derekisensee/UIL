@@ -1,13 +1,21 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.io.*;
 public class Dara {
     static String derivOf(String[] p) {
         String deriv = "";
         for (int i = 0; i < p.length; i++) {
-            if (p[i].length() == 1 && p[i].matches("[X0-9]")) {
+            if ((p[i].length() == 1 || p[i].length() == 2) && p[i].matches("[X0-9]")) {
+                /*for (String s :
+                        p) {
+                    System.out.println(s);
+                }*/
+                //System.out.println(p[i]);
                 if (p[i].equals("X"))
                     deriv += "1";
-                else if (p.length == 1)
+                else if (p[i].length() <= 2 && p[i].matches("[1-9][0-9]"))
+                    deriv += "0";
+                else if (p.length == 1 || p.length == 2)
                     deriv = "0";
             } else if (!(p[i].equals("-")) && !(p[i].equals("+"))) {
                 String[] brokenDown = p[i].split("");
@@ -34,11 +42,15 @@ public class Dara {
                 else {
                     if (power - 1 == 1)
                         deriv += (firstTerm * power) + "X";
-                    deriv += (firstTerm * power) + "X^" + (power - 1);
+                    else
+                        deriv += (firstTerm * power) + "X^" + (power - 1);
                 }
             }
             if (p[i].equals("-") || p[i].equals("+") /*&& !(i == p.length - 2)*/) {
                 deriv += " " + p[i] + " ";
+            }
+            if (p[i].length() <= 2 && p[i].matches("[1-9][0-9]")) {
+                deriv += "0";
             }
         }
         return deriv;
