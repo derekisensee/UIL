@@ -19,45 +19,36 @@ public class betterDara {
             firstTerm = Integer.parseInt(firstTermString.split(" ")[0]);
         else
             firstTerm = 1;
+
         int power = 0;
-        for (int j = 0; j < brokenDown.length; j++) {
+        for (int j = 0; j < brokenDown.length; j++) { // find the power of the term
             if (brokenDown[j].equals("^")) {
                 power = Integer.parseInt(brokenDown[j + 1]);
             }
         }
-        if (power == 0)
+        if (power == 0) // if just an X, i.e. deriv of 5x = 5
             deriv += firstTerm;
         else {
-            if (power - 1 == 1)
+            if (power - 1 == 1) // ex: deriv of 5x^2 = 10x
                 deriv += (firstTerm * power) + "X";
-            else
+            else // ex: deriv of 2x^10 = 20x^9
                 deriv += (firstTerm * power) + "X^" + (power - 1);
-            deriv += (firstTerm * power) + "X^" + (power - 1);
         }
         return deriv;
     }
 
     static String derivOf(String p) {
+        System.out.println("NEW CASE");
         String deriv = "";
         String[] polySplit = p.split("\\s\\+\\s|\\s-\\s");
-        //String[] polySplit = p.split("[^\\dX\\^\\d]");
         String[] signSplit = p.split("[^+|-]+");
-        System.out.println("NEW CASE");
-        //printing stuff
-        System.out.println("======================");
-        for (int i = 0; i < signSplit.length; i++) {
-            String s = signSplit[i];
-            System.out.print(s+"|");
+        for (int i = 0; i < polySplit.length; i++) {
+            String a = polySplit[i];
+            System.out.print(a + "|");
         }
         System.out.println();
         for (int i = 0; i < polySplit.length; i++) {
-            String s = polySplit[i];
-            System.out.print(s+"|");
-        }
-        System.out.println("\n======================");
-
-        for (int i = 0; i < polySplit.length; i++) {
-            if (polySplit[i].length() == 1) { // case for single constants or single termed equations
+            if (polySplit[i].length() == 1 || polySplit[i].length() == 2) { // case for single constants or single termed equations
                 if (polySplit[0].equals("X")) {
                     deriv += "1";
                 }
@@ -65,15 +56,19 @@ public class betterDara {
                     deriv += "0";
                 }
             }
-            else {
+            else { // case for everything else
                 if (signSplit.length > 0) {
-                    deriv += termDeriv(polySplit[i] + " " + signSplit[i]);
-                    System.out.println("ran");
+                    if (i == 0) {
+                        deriv += termDeriv(polySplit[i]) + " ";
+                    }
+                    else
+                        deriv += signSplit[i] + " " + termDeriv(polySplit[i]) + " ";
                 }
-                else
+                else {
                     deriv += termDeriv(polySplit[i]);
                 }
             }
+        }
         return deriv;
     }
 
@@ -82,7 +77,7 @@ public class betterDara {
         while(in.hasNext()) {
             String poly = in.nextLine();
             System.out.println(derivOf(poly.trim()));
-            //System.out.println(derivOf(poly) + " : " + derivOf(derivOf(poly)));
+            //System.out.println(derivOf(poly.trim()) + " : " + derivOf(derivOf(poly.trim())));
         }
     }
 }
