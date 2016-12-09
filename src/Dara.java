@@ -1,61 +1,88 @@
-import java.util.Arrays;
-import java.util.Scanner;
+/**
+ * Created by isenseed on 12/6/2016.
+ */
+import java.util.*;
 import java.io.*;
 public class Dara {
-    static String derivOf(String[] p) {
+    static String termDeriv(String p) {
         String deriv = "";
-        for (int i = 0; i < p.length; i++) {
-            if ((p[i].length() == 1 || p[i].length() == 2) && p[i].matches("[X0-9]")) {
-                /*for (String s :
-                        p) {
-                    System.out.println(s);
-                }*/
-                //System.out.println(p[i]);
-                if (p[i].equals("X"))
-                    deriv += "1";
-                    deriv = "0";
-            } else if (!(p[i].equals("-")) && !(p[i].equals("+"))) {
-                String[] brokenDown = p[i].split("");
-                String firstTermString = "";
-                for (int j = 0; j < brokenDown.length; j++) {
-                    if (brokenDown[j].equals("X")) {
-                        break;
-                    } else
-                        firstTermString += brokenDown[j];
-                }
-                int firstTerm;
-                if (!(firstTermString.equals("")))
-                    firstTerm = Integer.parseInt(firstTermString);
-                else
-                    firstTerm = 1;
-                int power = 0;
-                for (int j = 0; j < brokenDown.length; j++) {
-                    if (brokenDown[j].equals("^")) {
-                        power = Integer.parseInt(brokenDown[j + 1]);
-                    }
-                }
-                if (power == 0)
-                    deriv += firstTerm;
-                else {
-                    if (power - 1 == 1)
-                        deriv += (firstTerm * power) + "X";
-                    else
-                        deriv += (firstTerm * power) + "X^" + (power - 1);
-                    deriv += (firstTerm * power) + "X^" + (power - 1);
-                }
-            }
-            if (p[i].equals("-") || p[i].equals("+") /*&& !(i == p.length - 2)*/) {
-                deriv += " " + p[i] + " ";
+        String[] brokenDown = p.split("");
+        String firstTermString = "";
+        for (int j = 0; j < brokenDown.length; j++) {
+            if (brokenDown[j].equals("X")) {
+                break;
+            } else
+                firstTermString += brokenDown[j];
+        }
+        int firstTerm;
+        if (!(firstTermString.trim().equals("")))
+            firstTerm = Integer.parseInt(firstTermString.split(" ")[0]);
+        else
+            firstTerm = 1;
+
+        int power = 0;
+        for (int j = 0; j < brokenDown.length; j++) { // find the power of the term
+            if (brokenDown[j].equals("^")) {
+                power = Integer.parseInt(brokenDown[j + 1]);
             }
         }
+        for (int i = 0; i < brokenDown.length; i++) {
+            if (brokenDown[i].equals("X")) {
+                if (power == 0) // if just an X, i.e. deriv of 5x = 5
+                    deriv += firstTerm;
+                else {
+                    if (power - 1 == 1) // ex: deriv of 5x^2 = 10x
+                        deriv += (firstTerm * power) + "X";
+                    else // ex: deriv of 2x^10 = 20x^9
+                        deriv += (firstTerm * power) + "X^" + (power - 1);
+                }
+            }
+        }
+
+        return deriv;
+    }
+
+    static String derivOf(String p) {
+        String deriv = "";
+        String[] polySplit = p.split("\\s\\+\\s|\\s-\\s");
+        String[] signSplit = p.split("[^+|-]+");
+        for (int i = 0; i < polySplit.length; i++) {
+            if (polySplit[i].length() <= 3 && polySplit[i].matches("[^\\^]")/*polySplit[i].length() == 1 || polySplit[i].length() == 2*/) { // case for single constants or single termed equations
+                if (polySplit[i].equals("X")) {
+                    if (signSplit.length > 0)
+                        deriv += signSplit[i] + " 1";
+                    else
+                        deriv += "1";
+                }
+            }
+            else { // case for everything else
+                String newDeriv = termDeriv(polySplit[i]);
+                if (signSplit.length > 0) {
+                    if (i == 0) {
+                        if (!(newDeriv.equals("")))
+                            deriv += termDeriv(polySplit[i]) + " ";
+                    }
+                    else {
+                        if (!(newDeriv.equals("")))
+                            deriv += signSplit[i] + " " + termDeriv(polySplit[i]) + " ";
+                    }
+                }
+                else {
+                    if (!(newDeriv.equals("")))
+                        deriv += termDeriv(polySplit[i]);
+                }
+            }
+        }
+        if (deriv.equals(""))
+            deriv += "0";
         return deriv;
     }
 
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(new File("dara.dat"));
         while(in.hasNext()) {
-            String[] poly = in.nextLine().split(" ");
-            System.out.println(derivOf(poly) + " : " + derivOf(derivOf(poly).split(" ")));
+            String poly = in.nextLine();
+            System.out.println(derivOf(poly.trim()).trim() + " : " + derivOf(derivOf(poly.trim())).trim());
         }
     }
 }
