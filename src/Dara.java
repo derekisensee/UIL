@@ -47,7 +47,7 @@ public class Dara {
         String[] polySplit = p.split("\\s\\+\\s|\\s-\\s");
         String[] signSplit = p.split("[^+|-]+");
         for (int i = 0; i < polySplit.length; i++) {
-            if (polySplit[i].length() <= 3 && polySplit[i].matches("[^\\^]")/*polySplit[i].length() == 1 || polySplit[i].length() == 2*/) { // case for single constants or single termed equations
+            if (polySplit[i].length() <= 3 && polySplit[i].matches("[^\\^]")) { // case for single constants or single termed equations
                 if (polySplit[i].equals("X")) {
                     if (signSplit.length > 0)
                         deriv += signSplit[i] + " 1";
