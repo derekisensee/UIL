@@ -10,19 +10,31 @@ public class Heng {
             String[] i = in.nextLine().split(" ");
 
             String valString = i[0];
-            int val = Integer.parseInt(valString, 16);
-            valString = Integer.toBinaryString(val);
+            int bigDaddy = Integer.parseInt(valString, 16); // the value from hex > decimal
+            valString = Integer.toBinaryString(bigDaddy); // decimal > binary
 
             String keyString = i[1];
-            int key = Integer.parseInt(keyString, 16);
-            keyString = Integer.toBinaryString(key);
-            int d = val ^ key;
-            for (int j = 0; j < keyString.length() - 1; j++) {
-                d = d ^ key;
-            }
-            String divided = Integer.toBinaryString((val ^ key));
+            int key = Integer.parseInt(keyString, 16); // key from hex > decimal
+            keyString = Integer.toBinaryString(key); // key from decimal > binary
+
+
+
             System.out.println(valString + " : " + keyString);
-            System.out.println(d);
         }
+    }
+
+    public static void crc(String v, String k) {
+
+        if (v.length() < k.length()) {
+            System.out.println(v);
+        }
+        else {
+            String part = v.substring(0, k.length());
+            String result = "";
+            do {
+
+            } while (result.length() == part.length());
+        }
+
     }
 }
